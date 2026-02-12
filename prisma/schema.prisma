@@ -1,0 +1,69 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Channel {
+  id         Int          @id @default(autoincrement())
+  telegramId BigInt       @unique
+  username   String?
+  title      String
+  isActive   Boolean      @default(true)
+  addedAt    DateTime     @default(now())
+  typeId     Int?
+  type       ChannelType? @relation(fields: [typeId], references: [id])
+  messages   Message[]
+}
+
+model ChannelType {
+  id        Int       @id @default(autoincrement())
+  name      String    @unique
+  emoji     String    @default("📁")
+  isBuiltin Boolean   @default(false)
+  channels  Channel[]
+}
+
+model Message {
+  id                Int             @id @default(autoincrement())
+  telegramId        Int
+  channelId         Int
+  channel           Channel         @relation(fields: [channelId], references: [id], onDelete: Cascade)
+  text              String?
+  mediaType         String?
+  url               String?
+  date              DateTime
+  collectedAt       DateTime        @default(now())
+  includedInDigests DigestMessage[]
+
+  @@unique([channelId, telegramId])
+  @@index([date])
+}
+
+model Digest {
+  id          Int             @id @default(autoincrement())
+  content     String
+  aiSummary   String?
+  periodStart DateTime
+  periodEnd   DateTime
+  createdAt   DateTime        @default(now())
+  messages    DigestMessage[]
+}
+
+model DigestMessage {
+  digestId  Int
+  messageId Int
+  digest    Digest  @relation(fields: [digestId], references: [id], onDelete: Cascade)
+  message   Message @relation(fields: [messageId], references: [id], onDelete: Cascade)
+
+  @@id([digestId, messageId])
+}
+
+model Settings {
+  key       String   @id
+  value     String
+  updatedAt DateTime @updatedAt
+}
