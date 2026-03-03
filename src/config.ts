@@ -37,4 +37,10 @@ export const config = {
   // Scheduler
   digestCron: optional("DIGEST_CRON", "0 9 * * *"),
   digestTimezone: optional("DIGEST_TIMEZONE", "Europe/Moscow"),
+
+  // Obsidian Export via GitHub API (v1.2)
+  githubToken: optional("GITHUB_TOKEN"),
+  githubRepo: optional("GITHUB_REPO"),          // "owner/repo"
+  githubBranch: optional("GITHUB_BRANCH", "master"),
+  obsidianDigestsPath: optional("OBSIDIAN_DIGESTS_PATH", "09-knowledge/digests"),
 };

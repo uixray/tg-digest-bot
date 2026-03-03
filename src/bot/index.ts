@@ -17,6 +17,7 @@ import {
   handleAIProvider,
 } from "./commands/settings";
 import { menuCommand, mainMenuKeyboard, showExampleDigest, quickMenuKeyboard } from "./commands/menu";
+import { exportCommand } from "./commands/export";
 import {
   typesCommand,
   addTypeCommand,
@@ -51,6 +52,7 @@ export function createBot(): Telegraf {
   bot.command("remove", removeCommand);
   bot.command("collect", collectCommand);
   bot.command("digest", digestCommand);
+  bot.command("export", exportCommand);
   bot.command("settings", settingsCommand);
   bot.command("set", setCommand);
 

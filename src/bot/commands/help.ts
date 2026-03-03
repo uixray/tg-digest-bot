@@ -18,6 +18,10 @@ export async function helpCommand(ctx: Context) {
       `/types — список всех типов\n` +
       `/addtype имя 🏷 — создать свой тип\n` +
       `/deltype имя — удалить кастомный тип\n\n` +
+      `<b>Obsidian экспорт:</b>\n` +
+      `/export — экспорт дайджеста в Obsidian vault\n` +
+      `/export 3d — экспорт за 3 дня\n` +
+      `/export 1w ai — экспорт за неделю с AI-резюме\n\n` +
       `<b>Прочее:</b>\n` +
       `/collect — собрать новые сообщения\n` +
       `/settings — текущие настройки\n` +
